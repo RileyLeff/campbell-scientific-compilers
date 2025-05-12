@@ -199,6 +199,5 @@ def main():
     if not release_tag:
         print(f"Warning: Update '{MANIFEST_FILE}' with correct release tag in download_urls.")
 
-# stupid comment to trigger CI hopefully?
 if __name__ == "__main__":
     main()
