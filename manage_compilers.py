@@ -7,12 +7,11 @@
 # ]
 # ///
 
-# --- Rest of the script from the previous example ---
 import hashlib
 import os
 import re
 import zipfile
-import toml # This will be installed by uv run
+import toml
 from pathlib import Path
 from packaging.version import parse as parse_version, InvalidVersion
 
@@ -20,21 +19,22 @@ from packaging.version import parse as parse_version, InvalidVersion
 SOURCE_DIR = Path("compilers")
 OUTPUT_DIR = Path("release_zips")
 MANIFEST_FILE = Path("compilers.toml")
-PLACEHOLDER_URL_PREFIX = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/"
+
+# GitHub repository info (owner/repo) - used to construct download URLs
+# These should be automatically available in GitHub Actions, or you can set them manually
+GITHUB_REPOSITORY_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "rileyleff") # e.g., your GitHub username
+GITHUB_REPOSITORY_NAME = os.environ.get("GITHUB_REPOSITORY_NAME", "campbell-scientific-compilers") # e.g., campbell-scientific-compilers
+
 # --- End Configuration ---
 
-# --- Helper Functions (get_sha256, derive_id_and_version, bump_patch_version) ---
-# (Keep the functions as defined in the previous response)
+# (get_sha256, derive_id_and_version, bump_patch_version functions remain the same as before)
 def get_sha256(file_path: Path) -> str:
-    """Calculates the SHA256 hash of a file."""
     hasher = hashlib.sha256()
     with open(file_path, "rb") as f:
-        while chunk := f.read(4096):
-            hasher.update(chunk)
+        while chunk := f.read(4096): hasher.update(chunk)
     return hasher.hexdigest()
 
 def derive_id_and_version(filename: str) -> tuple[str, str]:
-    """Derives a compiler ID and attempts to guess a version from the filename."""
     base_name = filename.lower().removesuffix(".exe")
     version = "standard"
     match_version = re.search(r"(v\d+[a-z]?\d*)$", base_name)
@@ -49,15 +49,12 @@ def derive_id_and_version(filename: str) -> tuple[str, str]:
             if len(potential_base_parts) > 1 and potential_base_parts[0]:
                  version = version_part
                  base_name = potential_base_parts[0].rstrip('.-')
-
     compiler_id_with_version = re.sub(r"[._\s]+", "-", filename.lower().removesuffix(".exe"))
-    final_id = compiler_id_with_version # Default to ID containing version info
-
-    print(f"  Debug: Filename='{filename}', Base='{base_name}', Derived ID='{final_id}', Version='{version}'")
+    final_id = compiler_id_with_version
+    # print(f"  Debug: Filename='{filename}', Base='{base_name}', Derived ID='{final_id}', Version='{version}'")
     return final_id, version
 
 def bump_patch_version(version_str: str) -> str:
-    """Increments the patch number of a semantic version string."""
     try:
         v = parse_version(version_str)
         parts = list(v.release)
@@ -72,11 +69,21 @@ def bump_patch_version(version_str: str) -> str:
         print(f"Warning: Could not parse version '{version_str}'. Cannot bump automatically.")
         return version_str
 
-# --- main() function ---
-# (Keep the main function as defined in the previous response)
 def main():
-    """Main script execution."""
     print("Starting compiler management script...")
+
+    # Get the release tag from environment variable (set by CI)
+    # This tag will be used to construct the download URLs
+    release_tag = os.environ.get("RELEASE_TAG")
+    if not release_tag:
+        print("Warning: RELEASE_TAG environment variable not set. Download URLs will be placeholders.")
+        # Fallback to a placeholder if not in CI or tag not provided
+        download_url_prefix = f"https://github.com/{GITHUB_REPOSITORY_OWNER}/{GITHUB_REPOSITORY_NAME}/releases/download/PLACEHOLDER_TAG/"
+    else:
+        print(f"Using RELEASE_TAG='{release_tag}' for download URLs.")
+        download_url_prefix = f"https://github.com/{GITHUB_REPOSITORY_OWNER}/{GITHUB_REPOSITORY_NAME}/releases/download/{release_tag}/"
+
+
     if not SOURCE_DIR.is_dir(): print(f"Error: Source directory '{SOURCE_DIR}' not found."); return
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     print(f"Ensured output directory '{OUTPUT_DIR}' exists.")
@@ -99,6 +106,7 @@ def main():
 
     processed_compilers = {}
     manifest_changed = False
+    new_manifest_version = manifest_data["manifest_version"] # Start with current version
 
     print(f"Scanning '{SOURCE_DIR}' for compiler executables...")
     found_exes = sorted(list(set(list(SOURCE_DIR.glob("*.exe")) + list(SOURCE_DIR.glob("*.EXE")))))
@@ -120,49 +128,76 @@ def main():
         processed_compilers[compiler_id] = {"filename": exe_path.name, "version": version_guess, "zip_path": zip_path, "sha256": sha256_hash}
 
     print("-" * 40); print("Updating manifest...")
-    existing_compilers = manifest_data.get("compilers", {})
-    updated_compilers = existing_compilers.copy()
+    existing_compilers_in_manifest = manifest_data.get("compilers", {})
+    updated_compilers_in_manifest = existing_compilers_in_manifest.copy()
 
     for compiler_id, info in processed_compilers.items():
-        if compiler_id not in updated_compilers:
-            print(f"  Adding new compiler: '{compiler_id}'")
-            updated_compilers[compiler_id] = {
-                "description": f"Campbell Scientific Compiler ({info['filename']})",
+        current_download_url = f"{download_url_prefix}{info['zip_path'].name}"
+        if compiler_id not in updated_compilers_in_manifest:
+            print(f"  Adding new compiler to manifest: '{compiler_id}'")
+            updated_compilers_in_manifest[compiler_id] = {
+                "description": f"Campbell Scientific Compiler ({info['filename']})", # You can refine this
                 "version": info["version"],
-                "download_url": f"{PLACEHOLDER_URL_PREFIX}{info['zip_path'].name}",
+                "download_url": current_download_url,
                 "executable_name": info["filename"], "requires_wine": True, "supported_loggers": [], "sha256": info["sha256"],
             }
             manifest_changed = True
         else:
-            entry = updated_compilers[compiler_id]
-            if entry.get("sha256") != info["sha256"]:
-                print(f"  Updating SHA256 for existing compiler: '{compiler_id}'")
+            entry = updated_compilers_in_manifest[compiler_id]
+            if entry.get("sha256") != info["sha256"] or \
+               entry.get("download_url") != current_download_url or \
+               entry.get("version") != info["version"] or \
+               entry.get("executable_name") != info["filename"]: # Check other relevant fields
+                print(f"  Updating existing compiler in manifest: '{compiler_id}'")
                 entry["sha256"] = info["sha256"]
+                entry["download_url"] = current_download_url
+                entry["version"] = info["version"] # Update version if derived one changed
+                entry["executable_name"] = info["filename"]
+                # Keep existing description, supported_loggers, requires_wine unless changed by logic
                 manifest_changed = True
 
-    removed_ids = set(existing_compilers.keys()) - set(processed_compilers.keys())
+    removed_ids = set(existing_compilers_in_manifest.keys()) - set(processed_compilers.keys())
     if removed_ids:
-        print(f"  Warning: Compilers in manifest but not found in '{SOURCE_DIR}':")
-        for removed_id in sorted(list(removed_ids)): print(f"    - {removed_id} (Consider removing manually from TOML if obsolete)")
+        print(f"  Removing obsolete compilers from manifest:")
+        for removed_id in sorted(list(removed_ids)):
+            if removed_id in updated_compilers_in_manifest:
+                print(f"    - {removed_id}")
+                del updated_compilers_in_manifest[removed_id]
+                manifest_changed = True
 
     if manifest_changed:
         print("Manifest content changed.")
-        old_version = manifest_data.get("manifest_version", "1.0.0")
-        new_version = bump_patch_version(old_version)
-        print(f"  Bumping manifest version from {old_version} to {new_version}")
-        manifest_data["manifest_version"] = new_version
-        manifest_data["compilers"] = updated_compilers
-        print(f"Saving updated manifest to '{MANIFEST_FILE}'...")
-        try:
-            with open(MANIFEST_FILE, "w") as f: toml.dump(manifest_data, f)
-            print("Manifest saved successfully.")
-        except Exception as e: print(f"Error saving manifest: {e}")
-    else: print("No changes detected in compiler hashes or list. Manifest not saved.")
+        old_version = manifest_data["manifest_version"]
+        new_manifest_version = bump_patch_version(old_version)
+        print(f"  Bumping manifest version from {old_version} to {new_manifest_version}")
+    else:
+        print("No changes detected in compiler hashes or list. Manifest version not bumped unless forced.")
+        new_manifest_version = manifest_data["manifest_version"] # Keep current version
+
+
+    # Always write the manifest if the script runs, so URLs are updated even if only tag changed
+    # Or, only write if manifest_changed is true OR if release_tag was provided and is different from placeholder
+    # For CI, we generally want to write it out with the correct URLs based on the tag.
+    print(f"Saving manifest to '{MANIFEST_FILE}' (version: {new_manifest_version})...")
+    manifest_data["manifest_version"] = new_manifest_version
+    manifest_data["compilers"] = updated_compilers_in_manifest
+    try:
+        with open(MANIFEST_FILE, "w") as f: toml.dump(manifest_data, f)
+        print("Manifest saved successfully.")
+        # Output the new manifest version for CI to use as a tag
+        if "GITHUB_OUTPUT" in os.environ:
+            with open(os.environ["GITHUB_OUTPUT"], "a") as go:
+                print(f"manifest_version={new_manifest_version}", file=go)
+                print(f"manifest_changed={str(manifest_changed).lower()}", file=go)
+
+
+    except Exception as e: print(f"Error saving manifest: {e}")
+
 
     print("-" * 40); print("Script finished.")
     print(f"Zip files are in '{OUTPUT_DIR}'.")
-    print(f"Make sure to update '{MANIFEST_FILE}' with correct descriptions, versions, and download URLs (placeholders were used).")
-    print("Remember to upload the zip files from '{OUTPUT_DIR}' as GitHub Release assets.")
+    if not release_tag:
+        print(f"Warning: Update '{MANIFEST_FILE}' with correct release tag in download_urls.")
 
 if __name__ == "__main__":
     main()

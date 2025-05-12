@@ -1,0 +1,114 @@
+name: Release Compilers
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+    paths: # Trigger only if compilers or the script itself changes
+      - 'compilers/**'
+      - 'manage_compilers.py'
+  workflow_dispatch: # Allows manual triggering
+
+permissions:
+  contents: write # To push changes to compilers.toml and create tags/releases
+  actions: read # Default
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    outputs:
+      manifest_version: ${{ steps.run_script.outputs.manifest_version }}
+      manifest_changed: ${{ steps.run_script.outputs.manifest_changed }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch all history for accurate version bumping if needed by other tools
+          # and to allow pushing back
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }} # Use default token
+
+      - name: Set up Python and uv
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Or your preferred Python version
+      - run: pip install uv
+
+      - name: Determine Release Tag (from current manifest version)
+        id: get_initial_manifest_version
+        run: |
+          if [ -f compilers.toml ]; then
+            VERSION=$(grep '^manifest_version *=' compilers.toml | awk -F'"' '{print $2}')
+            echo "Initial manifest version: $VERSION"
+            echo "initial_version=$VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "No existing compilers.toml, will use 1.0.0 as base for bumping."
+            echo "initial_version=0.0.0" >> $GITHUB_OUTPUT # Script will bump this to 1.0.0 or similar
+          fi
+
+      - name: Run Compiler Management Script
+        id: run_script
+        env:
+          # The script will bump the initial_version if changes are made.
+          # The new version (output by script) will be used as the RELEASE_TAG.
+          # GITHUB_REPOSITORY_OWNER and GITHUB_REPOSITORY_NAME are auto-set by Actions
+          # We don't set RELEASE_TAG here yet, the script will determine the new version
+          # to be used as the tag.
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+        run: |
+          # The script will output 'manifest_version=x.y.z' and 'manifest_changed=true/false'
+          # The RELEASE_TAG for download URLs will be this new manifest_version
+          # We pass this new_version to the script via RELEASE_TAG env var
+          # First run to determine if changes and what the new version would be
+          python manage_compilers.py
+          # The script now writes manifest_version and manifest_changed to GITHUB_OUTPUT
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+      - name: Commit and Push Manifest Changes (if any)
+        id: commit_push
+        if: steps.run_script.outputs.manifest_changed == 'true'
+        run: |
+          git add compilers.toml
+          git commit -m "Automated: Update compilers.toml to version ${{ steps.run_script.outputs.manifest_version }}"
+          git push
+          echo "committed=true" >> $GITHUB_OUTPUT
+        # No push if no changes to avoid empty commits or loop
+
+      - name: Create or Update Release and Upload Assets
+        if: steps.run_script.outputs.manifest_changed == 'true' || steps.commit_push.outputs.committed == 'true' # Proceed if manifest changed or was just committed
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.run_script.outputs.manifest_version }} # Use v prefix for semver tags
+          name: Compilers v${{ steps.run_script.outputs.manifest_version }}
+          body: |
+            Automated release of Campbell Scientific compilers.
+            Manifest version: ${{ steps.run_script.outputs.manifest_version }}
+          # prerelease: false # Set to true if these are pre-releases
+          # draft: false # Set to true to create a draft release
+          files: release_zips/*.zip # Upload all zip files from the output directory
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Re-run script to update download URLs with the final tag (if manifest was just committed)
+        id: update_urls_after_commit
+        if: steps.commit_push.outputs.committed == 'true' # Only if a commit was made
+        env:
+          RELEASE_TAG: v${{ steps.run_script.outputs.manifest_version }} # Now we know the tag
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+        run: |
+          echo "Re-running script with RELEASE_TAG=${{ env.RELEASE_TAG }} to finalize download URLs."
+          python manage_compilers.py
+
+      - name: Commit and Push Final Manifest with Correct URLs
+        if: steps.update_urls_after_commit.outputs.manifest_changed == 'true' && steps.commit_push.outputs.committed == 'true'
+        run: |
+          git add compilers.toml
+          git commit -m "Automated: Finalize download URLs in compilers.toml for v${{ steps.run_script.outputs.manifest_version }}"
+          git push
+          echo "Final URLs committed."
