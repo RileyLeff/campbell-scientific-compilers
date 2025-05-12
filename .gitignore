@@ -1,0 +1,9 @@
+compilers/*
+.DS_Store
+.ds_store
+.idea/
+.vscode/
+release_zips/*
+.venv/
+__pycache__/
+*.pyc

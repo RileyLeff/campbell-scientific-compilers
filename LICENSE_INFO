@@ -1,0 +1,11 @@
+** DISCLAIMER: Compiler Licensing **
+
+The Campbell Scientific compiler binaries are proprietary software owned and licensed by **Campbell Scientific, Inc.**
+
+The compiler binaries are packaged and provided here solely as a convenience for users who are already licensed by Campbell Scientific to use them. By downloading or using any compiler package linked from this repository, you affirm that you have the necessary licenses from Campbell Scientific and agree to their terms of service and licensing conditions.
+
+This repository is not affiliated with, sponsored by, or endorsed by Campbell Scientific, Inc. All trademarks related to Campbell Scientific belong to their respective owners.
+
+I think this is all kinda stupid and they should release better, more open tools. And update them more often to keep up with modern development practices, especially at the rates they charge users for their hardware. If I own hardware, I should be able to interact with it how I see fit. But that's just my opinion.
+
+All of the stuff in this repository that ISN'T a campbell binary (as a compressed file or as a .exe) can be considered Apache/MIT at the user's discretion.

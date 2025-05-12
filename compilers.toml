@@ -1,0 +1,397 @@
+manifest_version = "1.1.1"
+
+[compilers.cr1comp]
+description = "Campbell Scientific CR1 Compiler"
+version = "standard"
+download_url = "PLACEHOLDER_URL/cr1comp.zip"
+executable_name = "cr1comp.exe"
+requires_wine = true
+supported_loggers = [ "CR1",]
+sha256 = "cc679b0b436b09687a67ec5c8b4ed6ac120fa2edcef18c9d4e017c5ce3a86cf8"
+
+[compilers.cr300comp]
+description = "Campbell Scientific CR300 Compiler"
+version = "standard"
+download_url = "PLACEHOLDER_URL/cr300comp.zip"
+executable_name = "cr300comp.exe"
+requires_wine = true
+supported_loggers = [ "CR300",]
+sha256 = "d832c918960cabeb9012839bac0783534de9e67b142862349109c8393608d0bb"
+
+[compilers.cr2comp]
+description = "Campbell Scientific CR200 Compiler (Base Version)"
+version = "standard"
+download_url = "PLACEHOLDER_URL/cr2comp.zip"
+executable_name = "cr2comp.exe"
+requires_wine = true
+supported_loggers = [ "CR200",]
+sha256 = "a34ac1d08bc32c42fcdda88c998c42f286f04e7d6d78ab669e7bdbd4cc127367"
+
+[compilers.cr5comp]
+description = "Campbell Scientific Compiler (CR5COMP.EXE)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr5comp.zip"
+executable_name = "CR5COMP.EXE"
+requires_wine = true
+supported_loggers = []
+sha256 = "93cf52155d00e2ab60c670619075a29c14ca4924066432efeb66a57eb0a7ee49"
+
+[compilers.cr6comp]
+description = "Campbell Scientific Compiler (CR6Comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr6comp.zip"
+executable_name = "CR6Comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "9d374a5e9a6985d4c79f7280f0f8263acbffe62623894b630b9c60752e28e900"
+
+[compilers.granite10comp]
+description = "Campbell Scientific Compiler (Granite10Comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/granite10comp.zip"
+executable_name = "Granite10Comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "d33af6b90d40d8832b19fb24bc5966df8ed1dad0feed9f638b6af109d94dbb30"
+
+[compilers.granite6comp]
+description = "Campbell Scientific Compiler (Granite6Comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/granite6comp.zip"
+executable_name = "Granite6Comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "c4728ead9e89b94c80feb7233c0efa39c0e5594553bddec0e88fe0acf12ead32"
+
+[compilers.granite9comp]
+description = "Campbell Scientific Compiler (Granite9comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/granite9comp.zip"
+executable_name = "Granite9comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "dc8786a6c1d8ffe8351864dbc727ab9a1edbefdd2df4b6f42757bd7b42b6d1c8"
+
+[compilers.cr1000xcomp]
+description = "Campbell Scientific Compiler (cr1000xcomp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr1000xcomp.zip"
+executable_name = "cr1000xcomp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "93a65d7da022bf579b13f52bb328705b725ef62f5dd6a56c66f25dbccb951f99"
+
+[compilers.cr2compcr200x-std-00]
+description = "Campbell Scientific Compiler (cr2compCR200X.Std.00.exe)"
+version = "std-00"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr200x-std-00.zip"
+executable_name = "cr2compCR200X.Std.00.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "d0b96ccaf5fdd1187be88f6a4347eb87ff2121efda234f9af5af9381ee511c6e"
+
+[compilers.cr2compcr200x-std-01]
+description = "Campbell Scientific Compiler (cr2compCR200X.Std.01.exe)"
+version = "std-01"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr200x-std-01.zip"
+executable_name = "cr2compCR200X.Std.01.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "4104686bae055e5cc0650fc3ef0519c5fb88b2982b6341991dab5770ea27279b"
+
+[compilers.cr2compcr200x-std-02]
+description = "Campbell Scientific Compiler (cr2compCR200X.Std.02.exe)"
+version = "std-02"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr200x-std-02.zip"
+executable_name = "cr2compCR200X.Std.02.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "989dc6341fef269daf04691265a5bc5c6a1534585450ae623585617700c1ff1e"
+
+[compilers.cr2compcr200x-std-03]
+description = "Campbell Scientific Compiler (cr2compCR200X.Std.03.exe)"
+version = "std-03"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr200x-std-03.zip"
+executable_name = "cr2compCR200X.Std.03.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "1e59e3dc9a691dd13197d5d2d21fe8a132175f06affcebfaa1de520c9a11d639"
+
+[compilers.cr2compcr200x-std-04]
+description = "Campbell Scientific Compiler (cr2compCR200X.Std.04.exe)"
+version = "std-04"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr200x-std-04.zip"
+executable_name = "cr2compCR200X.Std.04.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "7d8bf9f5c07b5a1764e4c6367ba018ef0d5ee88951646fb9648ea1388b4348de"
+
+[compilers.cr2compcr295x-std-00]
+description = "Campbell Scientific Compiler (cr2compCR295X.Std.00.exe)"
+version = "std-00"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr295x-std-00.zip"
+executable_name = "cr2compCR295X.Std.00.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "3cb03b4c7f2292d0b694ec9b681d4b36a9547b9511d456e98a58eb6c53652d75"
+
+[compilers.cr2compcr295x-std-01]
+description = "Campbell Scientific Compiler (cr2compCR295X.Std.01.exe)"
+version = "std-01"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr295x-std-01.zip"
+executable_name = "cr2compCR295X.Std.01.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "2eb484bc2d91632896bcf60a43d392ace08f58b0895f06e78dbb54d6af6346d3"
+
+[compilers.cr2compcr295x-std-02]
+description = "Campbell Scientific Compiler (cr2compCR295X.Std.02.exe)"
+version = "std-02"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr295x-std-02.zip"
+executable_name = "cr2compCR295X.Std.02.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "1b3b006e7b1557c9433fbf217d29b897013b0bce978c64b6368f03b3c2001462"
+
+[compilers.cr2compcr295x-std-03]
+description = "Campbell Scientific Compiler (cr2compCR295X.Std.03.exe)"
+version = "std-03"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr295x-std-03.zip"
+executable_name = "cr2compCR295X.Std.03.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "949ad746304bb1cb13317a4abd4a8a8c4baa59d2295e6f954142146451ec7bfc"
+
+[compilers.cr2compcr295x-std-04]
+description = "Campbell Scientific Compiler (cr2compCR295X.Std.04.exe)"
+version = "std-04"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compcr295x-std-04.zip"
+executable_name = "cr2compCR295X.Std.04.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "e27000cd6a525508c8d1ceda433896acf1db847d6a85fdab02f6da8222208cff"
+
+[compilers.cr2compv0-2-01]
+description = "Campbell Scientific Compiler (cr2compv0.2.01.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv0-2-01.zip"
+executable_name = "cr2compv0.2.01.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "b24414d5b3d86bf117f53bcfa387d28bf211b8db98eb0b3bb802802d1f154ecc"
+
+[compilers.cr2compv02]
+description = "Campbell Scientific Compiler (cr2compv02.exe)"
+version = "v02"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv02.zip"
+executable_name = "cr2compv02.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "5debaded6daf0429d6debc277583ccadc102dde682ede3a7884726f0f12e9336"
+
+[compilers.cr2compv03a]
+description = "Campbell Scientific Compiler (cr2compv03A.exe)"
+version = "v03a"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv03a.zip"
+executable_name = "cr2compv03A.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "e2a7a3f4addf4f15e92a79fef5ad4de722113d9a65ab7d6831d0442d3d2ea6e2"
+
+[compilers.cr2compv04]
+description = "Campbell Scientific Compiler (cr2compv04.exe)"
+version = "v04"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv04.zip"
+executable_name = "cr2compv04.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "d465d8fff7ca87384a50a1b05ee36d6035b027f673fc0dd17f8668339a17c336"
+
+[compilers.cr2compv04g]
+description = "Campbell Scientific Compiler (cr2compv04G.exe)"
+version = "v04g"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv04g.zip"
+executable_name = "cr2compv04G.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "51facf586a562b3996695376cf246f4ddb45479293987cad904f0bcde9df42e5"
+
+[compilers.cr2compv05]
+description = "Campbell Scientific Compiler (cr2compv05.exe)"
+version = "v05"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv05.zip"
+executable_name = "cr2compv05.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "7f0256df10c28efa3b02f4ef4ffe117ae9f1b67a6147de2866296ecb340b2184"
+
+[compilers.cr2compv06]
+description = "Campbell Scientific Compiler (cr2compv06.exe)"
+version = "v06"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv06.zip"
+executable_name = "cr2compv06.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "aed153c62e750f99da8b82f2b213c74036e7db9fac91e0359f4e32dba2ed1da3"
+
+[compilers.cr2compv06g]
+description = "Campbell Scientific Compiler (cr2compv06G.exe)"
+version = "v06g"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv06g.zip"
+executable_name = "cr2compv06G.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "00e7626ed79650c6fed5027e11b013e034b1b59da799f88c830616221f640f97"
+
+[compilers.cr2compv06s]
+description = "Campbell Scientific Compiler (cr2compv06S.exe)"
+version = "v06s"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv06s.zip"
+executable_name = "cr2compv06S.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "50a19e8a2065c3811969ae3445a3d3e7e95d671d824328e3edeb50bc5a6419c4"
+
+[compilers.cr2compv07]
+description = "Campbell Scientific Compiler (cr2compv07.exe)"
+version = "v07"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv07.zip"
+executable_name = "cr2compv07.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "225f7c800c2e09b0eb8b33f29a91abc47394fdcd686d45b55e2d9a8cfb425c6d"
+
+[compilers.cr2compv07g]
+description = "Campbell Scientific Compiler (cr2compv07G.exe)"
+version = "v07g"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv07g.zip"
+executable_name = "cr2compv07G.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "fda81f2b06269c897c7a89549ff512d3bfde673d6c894ab3cc7df09e7d30c9db"
+
+[compilers.cr2compv07m]
+description = "Campbell Scientific Compiler (cr2compv07M.exe)"
+version = "v07m"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv07m.zip"
+executable_name = "cr2compv07M.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "17d1df1c43b5ccb6c33606f859d24c3c28af777f9938a6497e32daba6dccae14"
+
+[compilers.cr2compv07s]
+description = "Campbell Scientific Compiler (cr2compv07S.exe)"
+version = "v07s"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv07s.zip"
+executable_name = "cr2compv07S.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "d04ebb76328bd805b389eeddedc50d61c1070db877466bc65f11a70e6045fc2b"
+
+[compilers.cr2compv09]
+description = "Campbell Scientific Compiler (cr2compv09.exe)"
+version = "v09"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv09.zip"
+executable_name = "cr2compv09.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "b3fccf9cdd5c78de9569c3afbec3908c9acd99e2fa829c33ed810a1c8f611ca2"
+
+[compilers.cr2compv09g]
+description = "Campbell Scientific Compiler (cr2compv09G.exe)"
+version = "v09g"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv09g.zip"
+executable_name = "cr2compv09G.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "bc087ea4f685104d86264f90b57c9c04708e5d87f8ce90d3c0b8ba19cad7916c"
+
+[compilers.cr2compv09m]
+description = "Campbell Scientific Compiler (cr2compv09M.exe)"
+version = "v09m"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv09m.zip"
+executable_name = "cr2compv09M.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "03b4b5a3510477e2b6247be1d0ea61b8a66c162cac6b66928b3c9e5b0388edd9"
+
+[compilers.cr2compv09s]
+description = "Campbell Scientific Compiler (cr2compv09S.exe)"
+version = "v09s"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv09s.zip"
+executable_name = "cr2compv09S.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "940823f08d801c87fff341fa1f239010f0ba6ce899dcbbe8e7eae30f26bb6ebe"
+
+[compilers.cr2compv10]
+description = "Campbell Scientific Compiler (cr2compv10.exe)"
+version = "v10"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv10.zip"
+executable_name = "cr2compv10.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "ca58c1dcd86c106057c9f8f2c759a5f7777cd74371b76f6208beba0d8664acf0"
+
+[compilers.cr2compv10g]
+description = "Campbell Scientific Compiler (cr2compv10G.exe)"
+version = "v10g"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv10g.zip"
+executable_name = "cr2compv10G.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "1ab806d88ff19f1d607c696dcf286cf2a91819a5b992e20a997454dd9c717df9"
+
+[compilers.cr2compv10m]
+description = "Campbell Scientific Compiler (cr2compv10M.exe)"
+version = "v10m"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv10m.zip"
+executable_name = "cr2compv10M.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "a765e5957b2380cf535448473ea5398f57c6eed175ce79358a641552705b6f11"
+
+[compilers.cr2compv10s]
+description = "Campbell Scientific Compiler (cr2compv10S.exe)"
+version = "v10s"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr2compv10s.zip"
+executable_name = "cr2compv10S.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "86549fb647c733a71b601aceec5d238ddfd83c3859087f71e313b36a79f194a4"
+
+[compilers.cr350comp]
+description = "Campbell Scientific Compiler (cr350comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr350comp.zip"
+executable_name = "cr350comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "f7a020d32502959b75971845e1c2c76dfd5565424c93aebea8e819786853cff3"
+
+[compilers.cr3comp]
+description = "Campbell Scientific Compiler (cr3comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr3comp.zip"
+executable_name = "cr3comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "3154b041068092cb296efd0aac0166d0c2e4a9190cd816fb995e19d979e14a40"
+
+[compilers.cr8comp]
+description = "Campbell Scientific Compiler (cr8comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr8comp.zip"
+executable_name = "cr8comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "edbed9ffae157e90d5634372f7cd4a5e37e39ba74b6a5192d8413e9bfa9448c2"
+
+[compilers.cr9comp]
+description = "Campbell Scientific Compiler (cr9comp.exe)"
+version = "standard"
+download_url = "https://github.com/YOUR_ORG/YOUR_REPO/releases/download/TAG_OR_VERSION/cr9comp.zip"
+executable_name = "cr9comp.exe"
+requires_wine = true
+supported_loggers = []
+sha256 = "e61c94a666ff73251c48592f4072283b56b1927d1eb6a7f9ad5e37dc40755278"
