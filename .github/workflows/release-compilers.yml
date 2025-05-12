@@ -3,10 +3,7 @@ name: Release Compilers
 on:
   push:
     branches:
-      - main # Or your default branch
-    paths: # Trigger only if compilers or the script itself changes
-      - 'compilers/**'
-      - 'manage_compilers.py'
+      - main 
   workflow_dispatch: # Allows manual triggering
 
 permissions:
