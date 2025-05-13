@@ -1,183 +1,86 @@
-# crbrs 🦀 - A Cross-Platform CRBasic Toolchain
+# Campbell Scientific Compiler Repository for crbrs
 
-A modern, cross-platform command-line interface (CLI) toolchain for developing programs for Campbell Scientific dataloggers using CRBasic, written in Rust.
+This repository serves as a community-maintained source for Campbell Scientific datalogger compiler binaries, packaged for use with the `crbrs` command-line interface. It contains a manifest file (`compilers.toml`) that `crbrs` uses to discover and download specific compiler versions.
 
-[![crates.io](https://img.shields.io/crates/v/crbrs-cli.svg?style=flat-square)](https://crates.io/crates/crbrs-cli) <!-- Placeholder -->
-[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue?style=flat-square)](./LICENSE-MIT) <!-- Choose MIT/Apache or just one -->
-[![Build Status](https://img.shields.io/github/actions/workflow/status/rileyleff/crbrs/rust.yml?branch=main&style=flat-square)](https://github.com/rileyleff/crbrs/actions?query=workflow%3ARust) <!-- Placeholder for your CI workflow file -->
+**The actual compiler binaries are hosted as assets on GitHub Releases within this repository.**
 
-## Motivation
+## 🚨 Important Disclaimer: Licensing and Usage 🚨
 
-Programming Campbell Scientific dataloggers often involves using proprietary Windows-based GUI tools (like the CRBasic Editor) which can feel dated and don't integrate well with modern development workflows.
+The compiler binaries are packaged and provided here solely as a convenience for users who are **already licensed by Campbell Scientific to use them.** By downloading or using any compiler package linked from this repository via `crbrs` or other means, you affirm that:
 
-`crbrs` aims to provide a better development experience by offering:
+1.  You possess the necessary licenses from Campbell Scientific for the specific compiler(s) you intend to use.
+2.  You agree to Campbell Scientific's terms of service and licensing conditions associated with their software.
 
-*   A **command-line interface** for common tasks like compiling, managing compilers, and (eventually) interacting with dataloggers.
-*   **Cross-platform compatibility**, enabling development on macOS (including Apple Silicon/M1+ and Intel), Linux, and Windows.
-*   Integration with modern text editors like **VS Code** (initially via external tasks, planned LSP support).
-*   A way to manage different **compiler versions** needed for various datalogger families and OS versions.
+This repository and the `crbrs` tool are not affiliated with, sponsored by, or endorsed by Campbell Scientific, Inc. All trademarks related to Campbell Scientific belong to their respective owners.
 
-## Features
+## Purpose
 
-*   **Compiler Management:**
-    *   List available compilers from a remote manifest (`compilers.toml`).
-    *   Install specific compiler versions into a managed directory.
-    *   List locally installed compilers.
-    *   Remove installed compilers.
-*   **Compilation Wrapper:**
-    *   Compile `.cr*` files using the appropriate installed compiler.
-    *   Automatically uses **Wine** on macOS/Linux to run the Windows-based Campbell Scientific compilers.
-    *   Handles compiler selection based on file extension associations or explicit flags.
-*   **Configuration:**
-    *   Manage settings via a `config.toml` file (e.g., compiler repository URL, Wine path).
-    *   Associate specific file extensions (`.cr2`, `.cr300`, etc.) with installed compiler IDs.
-*   **(Planned) Datalogger Communication:**
-    *   Flash compiled programs to loggers via Serial/USB.
-    *   Retrieve data tables from loggers.
-*   **(Planned) Language Server (LSP):**
-    *   Provide basic CRBasic language support (diagnostics via background compilation) for LSP-compatible editors like VS Code.
+The goal of this repository is to:
 
-## Installation
+1.  Provide a centralized, versioned manifest (`compilers.toml`) detailing available Campbell Scientific compilers.
+2.  Offer pre-packaged ZIP archives of individual compiler executables, hosted as GitHub Release assets.
+3.  Enable the `crbrs` tool to easily list, download, and manage these compilers for cross-platform CRBasic development.
 
-### Prerequisites
+## Structure
 
-1.  **Rust Toolchain:** Install Rust via [rustup](https://rustup.rs/).
-2.  **Wine (macOS/Linux only):** Required to run the Campbell Scientific compilers. Install it through your system's package manager (e.g., `brew install wine-stable` on macOS, `sudo apt install wine` on Debian/Ubuntu). `crbrs` will try to find `wine` in your PATH, or you can specify the path via `crbrs config set wine_path /path/to/wine`.
+*   `compilers.toml`: The primary manifest file. This TOML file lists available compilers, their versions, descriptions, download URLs (pointing to GitHub Release assets in this repo), SHA256 checksums for integrity, and other metadata.
+*   `compilers/`: A directory containing the raw Campbell Scientific compiler `.exe` files. This directory is used by the `manage_compilers.py` script to generate the zip archives. **This directory itself might not be essential to keep in the repo long-term if all executables are reliably versioned through the release zips.**
+*   `manage_compilers.py`: A Python script (using `uv` for self-contained execution) that automates:
+    *   Zipping individual executables from the `compilers/` directory.
+    *   Calculating SHA256 hashes for the zip files.
+    *   Updating the `compilers.toml` manifest with new entries, hashes, and download URLs (based on a release tag).
+    *   Bumping the `manifest_version` in `compilers.toml`.
+*   `release_zips/`: (Gitignored) A temporary local directory where `manage_compilers.py` outputs the generated `.zip` files before they are uploaded to a GitHub Release.
+*   `.github/workflows/`: Contains GitHub Actions workflows, for example, to automate the process of zipping, updating the manifest, and creating GitHub Releases when compilers are updated.
+*   `LICENSE_INFO`: A place to reiterate the licensing disclaimer and provide more detailed information if necessary.
+*   `README.md`: This file.
 
-### From Crates.io (Recommended - *Once Published*)
+## Using with `crbrs`
 
-```bash
-cargo install crbrs-cli
-```
+The `crbrs` tool can be configured to use the `compilers.toml` manifest from this repository.
 
-### From Source
+1.  **Find the Raw URL for `compilers.toml`:**
+    Navigate to the `compilers.toml` file in this repository on GitHub. Click the "Raw" button. Copy the URL from your browser's address bar.
 
-```bash
-git clone https://github.com/rileyleff/crbrs.git
-cd crbrs
-cargo build --release
-# The binary will be in ./target/release/crbrs-cli
-# You can copy it to a location in your PATH, e.g., ~/.cargo/bin/
-# cp target/release/crbrs-cli ~/.cargo/bin/crbrs
-```
-
-## Configuration
-
-`crbrs` uses a configuration file (`config.toml`) stored in a standard user config location.
-
-*   **Find Config Path:** `crbrs config path`
-*   **Show Current Config:** `crbrs config show`
-
-### Key Setting: Compiler Repository URL
-
-`crbrs` needs to know where to find the `compilers.toml` manifest file. It defaults to an example URL. You should point it to the manifest provided by the companion repository:
-
-1.  **Get the Raw URL:** Go to [github.com/rileyleff/campbell-scientific-compilers](https://github.com/rileyleff/campbell-scientific-compilers), navigate to `compilers.toml`, click "Raw", and copy the URL.
-2.  **Set the URL:**
+2.  **Configure `crbrs`:**
     ```bash
-    crbrs config set compiler_repository_url <PASTE_RAW_URL_HERE>
+    crbrs config set compiler_repository_url <RAW_URL_OF_COMPILERS.TOML_FROM_STEP_1>
     ```
 
-### Other Settings
+3.  **List Available Compilers:**
+    ```bash
+    crbrs compiler list-available
+    ```
 
-*   `wine_path`: (Optional) Explicit path to the `wine` executable if not in your system PATH.
-*   `compiler_storage_path`: (Optional) Override the default location where compiler zips are unpacked.
-*   `file_associations`: Map file extensions to compiler IDs (see Usage).
+4.  **Install a Compiler:**
+    ```bash
+    crbrs compiler install <compiler-id-from-list>
+    ```
+    (Example: `crbrs compiler install cr300comp`)
 
-## Usage
+## Contributing or Updating Compilers
 
-```bash
-# General Help
-crbrs --help
-crbrs compile --help
-crbrs compiler --help
-crbrs config --help
+Updates to the available compilers (adding new ones, updating versions) are managed through this repository, ideally via Pull Requests and an automated GitHub Actions workflow.
 
-# --- Compiler Management ---
+**General Workflow (Manual or Automated):**
 
-# List compilers available in the remote repository
-crbrs compiler list-available
+1.  **Add/Update Executables:** Place new or updated compiler `.exe` files into the `compilers/` directory.
+2.  **Run Management Script:** Execute `python manage_compilers.py` (or `uv run manage_compilers.py`). This will:
+    *   Create/update zip archives in `release_zips/`.
+    *   Update `compilers.toml` with SHA256 hashes and new entries/versions. The download URLs will be placeholders initially or constructed if a `RELEASE_TAG` environment variable is set (used by CI).
+3.  **Commit Changes:** Commit the updated `compilers.toml` (and potentially the `manage_compilers.py` script if it was changed).
+4.  **Create GitHub Release:**
+    *   Create a new tag (e.g., `vX.Y.Z`, matching the `manifest_version` from `compilers.toml`).
+    *   Create a new GitHub Release associated with this tag.
+    *   Upload all `.zip` files from `release_zips/` as assets to this release.
+5.  **Finalize `compilers.toml`:**
+    *   Update the `download_url` fields in `compilers.toml` to point to the actual URLs of the assets you just uploaded to the GitHub Release.
+    *   Commit and push this final version of `compilers.toml`.
 
-# Install a specific compiler (ID from list-available)
-crbrs compiler install cr300comp
+**Automation via GitHub Actions:**
+A GitHub Actions workflow in `.github/workflows/` aims to automate steps 2-5 when changes are pushed to the `compilers/` directory or the management script.
 
-# List compilers installed locally
-crbrs compiler list
+## Notes
 
-# Remove a locally installed compiler
-crbrs compiler remove cr300comp
-
-# --- Configuration ---
-
-# Show current settings
-crbrs config show
-
-# Show path to config file
-crbrs config path
-
-# Set the compiler repository URL
-crbrs config set compiler_repository_url <URL>
-
-# Set the path to Wine (if needed)
-crbrs config set wine_path /opt/local/bin/wine
-
-# Associate .cr2 files with the 'cr2comp-v10s' compiler
-crbrs config set-association --extension cr2 --compiler-id cr2comp-v10s
-
-# Remove an association
-crbrs config unset-association --extension cr2
-
-# --- Compilation ---
-
-# Compile using the associated compiler for .cr2
-crbrs compile my_program.cr2
-
-# Compile and specify an output log file
-crbrs compile my_program.cr2 --output-log compile_log.txt
-
-# Compile using a specific compiler, overriding association
-crbrs compile my_other_program.cr2 --compiler cr2comp-cr200x-std-04
-```
-
-## Compiler Repository
-
-The actual Campbell Scientific compiler binaries are managed in a separate repository:
-
-➡️ [github.com/rileyleff/campbell-scientific-compilers](https://github.com/rileyleff/campbell-scientific-compilers)
-
-This repository contains:
-
-*   The `compilers.toml` manifest file that `crbrs` reads.
-*   Scripts to package compilers.
-*   Automation (GitHub Actions) to create GitHub Releases.
-*   The **compiler binaries themselves hosted as assets** on the GitHub Releases page of that repository.
-
-Please refer to that repository's README for details on compiler licensing and management.
-
-## Future Work / Roadmap
-
-*   [ ] Implement actual compilation execution logic (calling the compiler via Wine/natively).
-*   [ ] Implement datalogger communication (flashing, data retrieval).
-*   [ ] Develop a basic Language Server Protocol (LSP) implementation.
-*   [ ] Add more robust error handling and reporting.
-*   [ ] Publish `crbrs-cli` to crates.io.
-*   [ ] Provide pre-built binaries via GitHub Releases for `crbrs`.
-
-## Contributing
-
-Contributions (bug reports, feature requests, pull requests) are welcome! Please feel free to open an issue on the [GitHub repository](https://github.com/rileyleff/crbrs/issues).
-
-## License
-
-Everything in the project (`crbrs`) **except** for the compiler binaries themselves (which are hosted in a separate repo) is licensed under either of
-
-*   Apache License, Version 2.0, ([LICENSE-APACHE](./LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
-*   MIT license ([LICENSE-MIT](./LICENSE-MIT) or http://opensource.org/licenses/MIT)
-
-at your option.
-
-## Disclaimer
-
-`crbrs` is an independent project and is not affiliated with, sponsored by, or endorsed by Campbell Scientific, Inc.
-
-The Campbell Scientific compilers managed and used by this tool are proprietary software owned by Campbell Scientific. Users are responsible for ensuring they have the appropriate licenses from Campbell Scientific to use these compilers. Refer to the [compiler repository README](https://github.com/rileyleff/campbell-scientific-compilers/blob/main/README.md) for more details.
+*   **SHA256 Checksums:** These are provided in `compilers.toml` for each compiler zip to ensure the integrity of downloads. `crbrs` should verify these checksums after downloading.
+*   **Versioning:** The `version` field for each compiler in `compilers.toml` should reflect the official versioning from Campbell Scientific if known. The `manifest_version` at the top of `compilers.toml` refers to the version of the manifest file itself and its structure.
