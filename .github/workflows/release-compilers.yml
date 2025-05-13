@@ -1,111 +1,110 @@
-name: Release Compilers
+name: Release Compilers CalVer
 
 on:
   push:
     branches:
-      - main 
-  workflow_dispatch: # Allows manual triggering
+      - main
+    paths:
+      - 'compilers/**'
+      - 'manage_compilers.py'
+  workflow_dispatch:
 
 permissions:
-  contents: write # To push changes to compilers.toml and create tags/releases
-  actions: read # Default
+  contents: write
+  actions: read
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
     outputs:
-      manifest_version: ${{ steps.run_script.outputs.manifest_version }}
-      manifest_changed: ${{ steps.run_script.outputs.manifest_changed }}
+      release_tag: ${{ steps.determine_tag.outputs.release_tag }}
+      content_changed: ${{ steps.run_script.outputs.content_changed }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Fetch all history for accurate version bumping if needed by other tools
-          # and to allow pushing back
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }} # Use default token
+          fetch-depth: 0 # To read existing manifest for version comparison
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python and uv
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11' # Or your preferred Python version
-      - run: pip install uv
+          python-version: '3.11'
+      - name: Install uv
+        run: pip install uv
 
-      - name: Determine Release Tag (from current manifest version)
-        id: get_initial_manifest_version
+      - name: Determine CalVer Release Tag
+        id: determine_tag
         run: |
+          current_manifest_version="0.0.0.0" # Default if file doesn't exist
           if [ -f compilers.toml ]; then
-            VERSION=$(grep '^manifest_version *=' compilers.toml | awk -F'"' '{print $2}')
-            echo "Initial manifest version: $VERSION"
-            echo "initial_version=$VERSION" >> $GITHUB_OUTPUT
-          else
-            echo "No existing compilers.toml, will use 1.0.0 as base for bumping."
-            echo "initial_version=0.0.0" >> $GITHUB_OUTPUT # Script will bump this to 1.0.0 or similar
+            # Try to read the version; ensure it's a valid CalVer-like string for comparison
+            current_manifest_version=$(grep '^manifest_version *=' compilers.toml | awk -F'"' '{print $2}' || echo "0.0.0.0")
           fi
+          echo "Current manifest version from file: $current_manifest_version"
+
+          today_str=$(date -u +'%Y.%m.%d')
+          new_tag_base=$today_str
+          current_micro=0
+
+          if [[ "$current_manifest_version" == "$today_str"* ]]; then # If current version is from today
+            # Extract micro part and increment
+            current_micro=$(echo "$current_manifest_version" | awk -F. '{print $4}' || echo 0)
+            # Ensure current_micro is a number
+            if ! [[ "$current_micro" =~ ^[0-9]+$ ]]; then current_micro=0; fi
+            new_micro=$((current_micro + 1))
+          else # New day or different format
+            new_micro=0
+          fi
+          release_tag="${new_tag_base}.${new_micro}"
+          echo "Determined CalVer tag for this run: $release_tag"
+          echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
       - name: Run Compiler Management Script
         id: run_script
         env:
-          # The script will bump the initial_version if changes are made.
-          # The new version (output by script) will be used as the RELEASE_TAG.
-          # GITHUB_REPOSITORY_OWNER and GITHUB_REPOSITORY_NAME are auto-set by Actions
-          # We don't set RELEASE_TAG here yet, the script will determine the new version
-          # to be used as the tag.
+          RELEASE_TAG: ${{ steps.determine_tag.outputs.release_tag }} # Pass the generated tag
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
         run: |
-          # The script will output 'manifest_version=x.y.z' and 'manifest_changed=true/false'
-          # The RELEASE_TAG for download URLs will be this new manifest_version
-          # We pass this new_version to the script via RELEASE_TAG env var
-          # First run to determine if changes and what the new version would be
           uv run manage_compilers.py
-          # The script now writes manifest_version and manifest_changed to GITHUB_OUTPUT
+          # Script outputs content_changed to GITHUB_OUTPUT
 
       - name: Configure Git
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
 
-      - name: Commit and Push Manifest Changes (if any)
-        id: commit_push
-        if: steps.run_script.outputs.manifest_changed == 'true'
+      - name: Commit and Push Manifest Changes
+        # Commit if content changed OR if the determined tag is different from what was in the file
+        # (meaning even if content is same, we might be forcing a new CalVer release for the day)
+        # The python script now handles the manifest_version update to the release_tag.
+        # So, we just need to check if the file was modified by the script.
         run: |
-          git add compilers.toml
-          git commit -m "Automated: Update compilers.toml to version ${{ steps.run_script.outputs.manifest_version }}"
-          git push
-          echo "committed=true" >> $GITHUB_OUTPUT
-        # No push if no changes to avoid empty commits or loop
+          if ! git diff --quiet compilers.toml; then
+            echo "compilers.toml has changed. Committing."
+            git add compilers.toml
+            git commit -m "Automated: Update compilers.toml to version ${{ steps.determine_tag.outputs.release_tag }}"
+            git push
+          else
+            echo "compilers.toml unchanged by script. No commit needed."
+          fi
 
-      - name: Create or Update Release and Upload Assets
-        if: steps.run_script.outputs.manifest_changed == 'true' || steps.commit_push.outputs.committed == 'true' # Proceed if manifest changed or was just committed
+      - name: Create Release and Upload Assets
+        # Only create a release if the content of compilers actually changed OR if it's a new CalVer tag for the day.
+        # The python script outputs 'content_changed'. We can rely on that.
+        # Or, more simply, always try to create the release if the workflow runs and the tag is new.
+        # The softprops action will fail if the tag already exists and isn't a pre-release being updated.
+        if: steps.run_script.outputs.content_changed == 'true' || true # Or a more sophisticated check if today's tag is new
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.run_script.outputs.manifest_version }} # Use v prefix for semver tags
-          name: Compilers v${{ steps.run_script.outputs.manifest_version }}
+          tag_name: ${{ steps.determine_tag.outputs.release_tag }} # Use the CalVer tag directly
+          name: Compilers ${{ steps.determine_tag.outputs.release_tag }}
           body: |
-            Automated release of Campbell Scientific compilers.
-            Manifest version: ${{ steps.run_script.outputs.manifest_version }}
-          # prerelease: false # Set to true if these are pre-releases
-          # draft: false # Set to true to create a draft release
-          files: release_zips/*.zip # Upload all zip files from the output directory
+            Automated CalVer release of Campbell Scientific compilers.
+            Manifest version: ${{ steps.determine_tag.outputs.release_tag }}
+          # Setting fail_on_unmatched_files to true is good practice
+          fail_on_unmatched_files: true
+          files: release_zips/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Re-run script to update download URLs with the final tag (if manifest was just committed)
-        id: update_urls_after_commit
-        if: steps.commit_push.outputs.committed == 'true' # Only if a commit was made
-        env:
-          RELEASE_TAG: v${{ steps.run_script.outputs.manifest_version }} # Now we know the tag
-          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
-        run: |
-          echo "Re-running script with RELEASE_TAG=${{ env.RELEASE_TAG }} to finalize download URLs."
-          python manage_compilers.py
-
-      - name: Commit and Push Final Manifest with Correct URLs
-        if: steps.update_urls_after_commit.outputs.manifest_changed == 'true' && steps.commit_push.outputs.committed == 'true'
-        run: |
-          git add compilers.toml
-          git commit -m "Automated: Finalize download URLs in compilers.toml for v${{ steps.run_script.outputs.manifest_version }}"
-          git push
-          echo "Final URLs committed."
