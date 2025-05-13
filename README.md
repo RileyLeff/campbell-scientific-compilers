@@ -181,5 +181,3 @@ at your option.
 `crbrs` is an independent project and is not affiliated with, sponsored by, or endorsed by Campbell Scientific, Inc.
 
 The Campbell Scientific compilers managed and used by this tool are proprietary software owned by Campbell Scientific. Users are responsible for ensuring they have the appropriate licenses from Campbell Scientific to use these compilers. Refer to the [compiler repository README](https://github.com/rileyleff/campbell-scientific-compilers/blob/main/README.md) for more details.
-
-That said, Campbell's current model is stupid and I don't like it.
