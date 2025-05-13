@@ -1,4 +1,4 @@
-manifest_version = "1.1.2"
+manifest_version = "1.1.3"
 
 [compilers.cr1comp]
 description = "Campbell Scientific CR1 Compiler"
@@ -7,7 +7,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr1comp.exe"
 requires_wine = true
 supported_loggers = [ "CR1",]
-sha256 = "3a7ffd845280f8683acfe38e2b2556f696cee58041c6471e369bd43b101031dd"
+sha256 = "4e2bc8b755564d358957d92f2250e077edff75e3d875c8fc4707f9e526c24ee4"
 
 [compilers.cr300comp]
 description = "Campbell Scientific CR300 Compiler"
@@ -16,7 +16,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr300comp.exe"
 requires_wine = true
 supported_loggers = [ "CR300",]
-sha256 = "60c96f28e652fad784962d82f62c00ff1fad4874172362c43e14342bdd7f4487"
+sha256 = "a5f1e44181bc588929a6b851e234436b5e883cf18635ecc8f3eb0f8597500f58"
 
 [compilers.cr2comp]
 description = "Campbell Scientific CR200 Compiler (Base Version)"
@@ -25,7 +25,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2comp.exe"
 requires_wine = true
 supported_loggers = [ "CR200",]
-sha256 = "eb3481f1f336f21769a710da2054b1d37fa27c2766387df0bef14a0d714529d9"
+sha256 = "9adb161ed72b8cc8bec70fe7f2ab9a9d4595eb96a70c2352198c1a39642fbe7c"
 
 [compilers.cr5comp]
 description = "Campbell Scientific Compiler (CR5COMP.EXE)"
@@ -34,7 +34,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "CR5COMP.EXE"
 requires_wine = true
 supported_loggers = []
-sha256 = "39a4bf5ccfb6e3c26f87c8d11e0c22a514388ba4e8f8bfab846ea26c34309eef"
+sha256 = "dbaa76740942dace313c40d63bf75e3a5d272a43e25376ad81f7fa090260e995"
 
 [compilers.cr6comp]
 description = "Campbell Scientific Compiler (CR6Comp.exe)"
@@ -43,7 +43,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "CR6Comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "2500c7637e35511505cc0216009dfc3d2c546901c3e5cca43f581148423adfcd"
+sha256 = "0c737e35f2b8651e97e66ab9aab0465297e0ff1bc36b39214a915473dc4e995b"
 
 [compilers.granite10comp]
 description = "Campbell Scientific Compiler (Granite10Comp.exe)"
@@ -52,7 +52,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "Granite10Comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "a241deec5a95c02a2d86a75a0e7969ceb37d17f1bfdeb9b67d8342925eeb00a4"
+sha256 = "669977743fb6270e98ded42e3662fecfcf3b00a0b3099f46889c2c5116223d9d"
 
 [compilers.granite6comp]
 description = "Campbell Scientific Compiler (Granite6Comp.exe)"
@@ -61,7 +61,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "Granite6Comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "ea9c58be884a977b24159056f709d559b533882a3ea5c78ebad6097615c1684e"
+sha256 = "8322551592bfaf79fb1157ce139d66b3928e77a3ff24c1fa3d7c66d78c857dd4"
 
 [compilers.granite9comp]
 description = "Campbell Scientific Compiler (Granite9comp.exe)"
@@ -70,7 +70,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "Granite9comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "26c070165218d8a7060e0ed7d1f695f1377d87f5e5558860f6a13895544de98d"
+sha256 = "0ccb395646bc83e9aa4cc6994896ab986cc2793cafea10d691fc520c06ee508a"
 
 [compilers.cr1000xcomp]
 description = "Campbell Scientific Compiler (cr1000xcomp.exe)"
@@ -79,7 +79,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr1000xcomp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "2424acb6093064742ea5ef0ffb436afbf4b6cd7ea0032e7e7f328447ddf536e6"
+sha256 = "c0f9d3cff6f4536863a561d898bb609802159f6760b88f17f92f22f37dd23e31"
 
 [compilers.cr2compcr200x-std-00]
 description = "Campbell Scientific Compiler (cr2compCR200X.Std.00.exe)"
@@ -88,7 +88,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR200X.Std.00.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "63153607044425eb19954c473d59880649081e1ac45b9f147d3ecc792011da9e"
+sha256 = "b0fc593744e903c37289f1c4502741cb84847ecbfab6bc253c26833711e91d2d"
 
 [compilers.cr2compcr200x-std-01]
 description = "Campbell Scientific Compiler (cr2compCR200X.Std.01.exe)"
@@ -97,7 +97,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR200X.Std.01.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "d616d5158d651c34a2447047b93218b2bb99b7bef11f5d8661bc6b0f4ca3c24a"
+sha256 = "c7cc9ea18a3a470ab5d03ba2717192b3c15be19e20ef89168cb0b44353e74a71"
 
 [compilers.cr2compcr200x-std-02]
 description = "Campbell Scientific Compiler (cr2compCR200X.Std.02.exe)"
@@ -106,7 +106,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR200X.Std.02.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "f8ea30f3677d70208db292dc8b74f90887f3e394ba6ea6cc3e311e8afda113bb"
+sha256 = "f86e77b80b84149f59d847953c40b49a92529499c081f4d6a4787f7ef7b0d50d"
 
 [compilers.cr2compcr200x-std-03]
 description = "Campbell Scientific Compiler (cr2compCR200X.Std.03.exe)"
@@ -115,7 +115,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR200X.Std.03.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "9627e2eadbda86b4e9bf37a4bbe73173cbc05ff465f380f929963f7540e289dc"
+sha256 = "a2b27339acfad5bfde2f42337e315cf0039401bcb9c126ab8bd775d2a7a1a529"
 
 [compilers.cr2compcr200x-std-04]
 description = "Campbell Scientific Compiler (cr2compCR200X.Std.04.exe)"
@@ -124,7 +124,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR200X.Std.04.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "4ea2850ca5dbf6da5ee8e9720c71b70f80c74e8554885a1341af423e5b66fff4"
+sha256 = "dd81f1de28dae33e407ef95aa7694c5839a52eae36f1e7c1ca82db9fd1b188f3"
 
 [compilers.cr2compcr295x-std-00]
 description = "Campbell Scientific Compiler (cr2compCR295X.Std.00.exe)"
@@ -133,7 +133,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR295X.Std.00.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "78bb8632e8761d4b4bc0a3e7c357a3fb2af03d8231635a105c6d727af016288e"
+sha256 = "86d1c01a20826ba9fbfac9ec7aad8c8a591f890fd847064e4039b6520c966b40"
 
 [compilers.cr2compcr295x-std-01]
 description = "Campbell Scientific Compiler (cr2compCR295X.Std.01.exe)"
@@ -142,7 +142,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR295X.Std.01.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "3c1465c4822b28a499dc7543fef464876290528a06a6c97eb4a81cdb37340362"
+sha256 = "2a5907e70a745cb60c1084a518afa5f701ac1f750f9ce224ffaa133c4d42ae51"
 
 [compilers.cr2compcr295x-std-02]
 description = "Campbell Scientific Compiler (cr2compCR295X.Std.02.exe)"
@@ -151,7 +151,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR295X.Std.02.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "ea9de4207632386a18b5cdc35e54e51b7504ca79b87abf7527c7577cd4921414"
+sha256 = "6f080466eed8c6c1bad563ed917a2b7b82168d1e47d5e7de38f975c306e9215e"
 
 [compilers.cr2compcr295x-std-03]
 description = "Campbell Scientific Compiler (cr2compCR295X.Std.03.exe)"
@@ -160,7 +160,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR295X.Std.03.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "e8e457d044de4a8693c34f413f9bcb4100f584db964c26b2625625c0d929c078"
+sha256 = "066fa687756a27af79e927a7b75ccf60b8ca0ec6f2c3e9896128b9d5266afa33"
 
 [compilers.cr2compcr295x-std-04]
 description = "Campbell Scientific Compiler (cr2compCR295X.Std.04.exe)"
@@ -169,7 +169,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compCR295X.Std.04.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "a50c963421324fb7d3f8daad264bc1a10f8deeb18224aef6db0e026c1a45df8c"
+sha256 = "8ce119b6cbe63e191cd974b8d4156753e1d0d5d5afd0c00aba9e7a76f17e6d83"
 
 [compilers.cr2compv0-2-01]
 description = "Campbell Scientific Compiler (cr2compv0.2.01.exe)"
@@ -178,7 +178,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv0.2.01.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "acec3c48669c4feefe8dcf3e7b172a07a9ee620ebb95c018143980919f076c3f"
+sha256 = "648af28cfe24f87417ecb43def578dc38084306cba2615f3f5daee455b646c4b"
 
 [compilers.cr2compv02]
 description = "Campbell Scientific Compiler (cr2compv02.exe)"
@@ -187,7 +187,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv02.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "cb330b46a219eacdaac1023616050f259fb89beddb79191ea6b25df2506d7476"
+sha256 = "43d2f2497d4a91047d0a0ae4234462ec860d3f6fbe66125689793d6d048bfde4"
 
 [compilers.cr2compv03a]
 description = "Campbell Scientific Compiler (cr2compv03A.exe)"
@@ -196,7 +196,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv03A.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "dbb524011e1b728f77cf8c98894eaccabf1bba686ba391d3a701ad2f93738d2c"
+sha256 = "a7a7c67bc469e6bbfb7288b968c8b7c3a31103dc8bae8d29f781d620c3505e83"
 
 [compilers.cr2compv04]
 description = "Campbell Scientific Compiler (cr2compv04.exe)"
@@ -205,7 +205,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv04.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "b557091870338c0e935e12f019a5f9daa1dddf14533eff290880a26ccb1457b5"
+sha256 = "3c614d88deec19926ad9108bd3b9ce4e86d14c356445e955f2cd90569ca897c0"
 
 [compilers.cr2compv04g]
 description = "Campbell Scientific Compiler (cr2compv04G.exe)"
@@ -214,7 +214,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv04G.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "d10d48c2b43356228a4cef2193b25561251f7c37e198553a7995fa7a15db938c"
+sha256 = "b77367b1e272a6b03bf2aa5e24d146758dabaf562bdec6c65efcdf5d30f8b757"
 
 [compilers.cr2compv05]
 description = "Campbell Scientific Compiler (cr2compv05.exe)"
@@ -223,7 +223,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv05.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "14774b1db5ca8108a2c52e1dc50315784e3b05948d890b9f2cd4591a5276b782"
+sha256 = "6ade85ae1ae27fc9128241ace35675cb2663465b8c4b022ce66597d70e103458"
 
 [compilers.cr2compv06]
 description = "Campbell Scientific Compiler (cr2compv06.exe)"
@@ -232,7 +232,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv06.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "af639f34a6f15d43cd2b140ce24406c30206902c5926b051a61ebaa8922366ad"
+sha256 = "247a3669b8808b39d89b77b2f061a90b1e0892d6afa461dfb57368ba0601baa5"
 
 [compilers.cr2compv06g]
 description = "Campbell Scientific Compiler (cr2compv06G.exe)"
@@ -241,7 +241,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv06G.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "768c6b0fd8171355b75bcaf312bad9e22232badcb5408412fa2e8083629f475c"
+sha256 = "e216a324d864e49cc11f1f4ddbd2465025c67f16dfe98cf12ae228acf310fcf1"
 
 [compilers.cr2compv06s]
 description = "Campbell Scientific Compiler (cr2compv06S.exe)"
@@ -250,7 +250,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv06S.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "3d14a75b100f9a7d1fab764369f81e64c63d3cb1e2824632819f8c5eb9858b41"
+sha256 = "3cee1a852c6e59038a149210f14260d8fb165747586118e5b54ec6fda3dd8088"
 
 [compilers.cr2compv07]
 description = "Campbell Scientific Compiler (cr2compv07.exe)"
@@ -259,7 +259,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv07.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "cf3af129d08652b94b763c7ec7c2a2bc595c3ebd25b63de144df274ebc14206d"
+sha256 = "33cceb403540928ef84d387b3f8bbfc47823e9475c80974248ba36f7ac65ffb7"
 
 [compilers.cr2compv07g]
 description = "Campbell Scientific Compiler (cr2compv07G.exe)"
@@ -268,7 +268,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv07G.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "3ba4061574b3a803dba257e68283d8d4e05a03244899d547c2b94f938d87d170"
+sha256 = "88de3dbd9cb36bf7d006ef93ec0eb02cabe8fa8a9fc9ad67c5777ed9ec61cdde"
 
 [compilers.cr2compv07m]
 description = "Campbell Scientific Compiler (cr2compv07M.exe)"
@@ -277,7 +277,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv07M.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "46013df058ea49433da2701a242926b39fc7faebb659305b5a38ba60a83981ae"
+sha256 = "bd3044b8bb39d6a50b5c1603555aed504901a9bae4bddeb21440521ee69029e0"
 
 [compilers.cr2compv07s]
 description = "Campbell Scientific Compiler (cr2compv07S.exe)"
@@ -286,7 +286,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv07S.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "7159b72d1f5d3103c34eabed6b193b0ecd1cf07707b639d35bf65397977c15a6"
+sha256 = "ace7ff127510495fdf4a3d87bf094872564dd68f599ba1131cf56975439fae5a"
 
 [compilers.cr2compv09]
 description = "Campbell Scientific Compiler (cr2compv09.exe)"
@@ -295,7 +295,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv09.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "661d7ef2faa8454cbd21753b96c0cca01222e8376d213cf7c7a2b187d4d8f147"
+sha256 = "cf85608cd9b008cc73a92ab310585e775bdcd968479030bf708ee0d3abcce55b"
 
 [compilers.cr2compv09g]
 description = "Campbell Scientific Compiler (cr2compv09G.exe)"
@@ -304,7 +304,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv09G.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "135bc4052e053f64b339566196664be67d0c45e20e66525fb00f041b710023c9"
+sha256 = "948d7792eaaababd1c914fc5fe2e5affd4c95d623a12e14f3b0f026ea9aaa202"
 
 [compilers.cr2compv09m]
 description = "Campbell Scientific Compiler (cr2compv09M.exe)"
@@ -313,7 +313,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv09M.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "afc2dc46e9ddf3ffac2b7f0dff0f148f0307dc881718dd2bd3b9ab2bea6b6e32"
+sha256 = "c0dbd7b3f4b491b0dcf76ccdf92f3655dcf8aba1c1165ab8d99434da21aa735f"
 
 [compilers.cr2compv09s]
 description = "Campbell Scientific Compiler (cr2compv09S.exe)"
@@ -322,7 +322,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv09S.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "ce1b837ae51abc9e80e55c3bb80650afe4c841df0b9061fd7f5b5a7de02089ba"
+sha256 = "7d597d9abf8a0e4e2282974e191d1a1829adff6c3cd7083d4ba5e4c8f7c6887a"
 
 [compilers.cr2compv10]
 description = "Campbell Scientific Compiler (cr2compv10.exe)"
@@ -331,7 +331,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv10.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "e64bb8ec82c2b10c975302c18db53defa155e65096d88d2c4f15e878ca2c9bd0"
+sha256 = "12316d4b7d224bd30e7f99adb8e431a951a1eac4f9f7517682e185923c6233de"
 
 [compilers.cr2compv10g]
 description = "Campbell Scientific Compiler (cr2compv10G.exe)"
@@ -340,7 +340,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv10G.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "4d4360442de2edaa5d29d713092bd3facd0b0ebdc3570594c1555f5bd155d3b5"
+sha256 = "0666acb92ffd3f202a9fe4e3b72cdd96cd7ef7db4870bdf85100b7781d2939ea"
 
 [compilers.cr2compv10m]
 description = "Campbell Scientific Compiler (cr2compv10M.exe)"
@@ -349,7 +349,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv10M.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "2ba52c51cfdbadc53341f6158734867088889794de86aaf35d7923cdf04218fc"
+sha256 = "e06fe14b14e2c38dfd099d7578b8b0785faa3c01c6e90da11e67ce9befaaaa53"
 
 [compilers.cr2compv10s]
 description = "Campbell Scientific Compiler (cr2compv10S.exe)"
@@ -358,7 +358,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr2compv10S.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "bae4679374056cb9b044f1a54a19d21f96b4a2c3ee0193489f032833c747903a"
+sha256 = "095c4cbc20c89e737f4e7e4fc5ad214d94671dd24d80cd83c7b1e4bf6c4348f9"
 
 [compilers.cr350comp]
 description = "Campbell Scientific Compiler (cr350comp.exe)"
@@ -367,7 +367,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr350comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "773338f7061e9d0242413b7f16ca754af3cd8c3140f7a2037839cfc9238f9cc7"
+sha256 = "b954dcf1d94d7b78202eecb6892f31f58def1cb73483b792ccaa12665b0fb3e8"
 
 [compilers.cr3comp]
 description = "Campbell Scientific Compiler (cr3comp.exe)"
@@ -376,7 +376,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr3comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "23a300f76c1c3ef7bc08e57db9a3288e411da4129914f16fd4f6177768145655"
+sha256 = "bd332d62962ea2141125fdb29d56457cca76a88c28c3f27f1d368774ca7365ce"
 
 [compilers.cr8comp]
 description = "Campbell Scientific Compiler (cr8comp.exe)"
@@ -385,7 +385,7 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr8comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "0ee391214247d5a5ad4575c9f0c82dbbd8b49df71db46f51a35d430e28c230e9"
+sha256 = "53407bbf64da0faa5a802f50e9849d06a27121c60ab2278d4bd77ea0f9737d5d"
 
 [compilers.cr9comp]
 description = "Campbell Scientific Compiler (cr9comp.exe)"
@@ -394,4 +394,4 @@ download_url = "https://github.com/RileyLeff/campbell-scientific-compilers/relea
 executable_name = "cr9comp.exe"
 requires_wine = true
 supported_loggers = []
-sha256 = "477535e3f327922e71dc562e0e64a7289ebd399b6d3d30d1a026409b357d5111"
+sha256 = "93500b908320a21054709cb4edd7518089aec282c01c17ec318efba0931b7761"
